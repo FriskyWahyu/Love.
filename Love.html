@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Love Message</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    background-color: #001f4d; /* dark blue background */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+  #passwordScreen, #loveScreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Allow scrolling if content overflows */
+    color: white;
+    padding: 20px; /* Add padding for better spacing on smaller screens */
+    box-sizing: border-box; /* Include padding in height calculations */
+  }
+  #passwordInput {
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    margin-top: 10px;
+  }
+  #submitBtn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #004080;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+  }
+  #submitBtn:hover {
+    background-color: #0066cc;
+  }
+  #loveScreen {
+    background: linear-gradient(135deg, #3399ff, #66ccff);
+    text-align: center;
+  }
+  #loveScreen img {
+    max-width: 300px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px #3399ff;
+    margin-bottom: 20px;
+  }
+  #loveScreen h1 {
+    font-size: 2.5em; /* Adjust font size for smaller screens */
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px #003366;
+  }
+  #loveScreen p {
+    font-size: 1.2em; /* Adjust font size for smaller screens */
+    max-width: 600px;
+    margin: 0 auto 20px;
+    text-shadow: 0 0 8px #004080;
+  }
+  /* Particle styles */
+  .particle {
+    position: fixed;
+    width: 15px;
+    height: 15px;
+    background: #ff4d6d;
+    border-radius: 50%;
+    opacity: 0.8;
+    pointer-events: none;
+    animation-name: floatUp;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0) translateX(0) scale(1);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(-100vh) translateX(20px) scale(0.5);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+<div id="passwordScreen">
+  <h2>Masukkan Password <br>
+    Clue : Seperti Simanis</h2>
+  <input type="password" id="passwordInput" placeholder="Masukkan password" />
+  <button id="submitBtn">Submit</button>
+  <p id="errorMsg" style="color:#ff6666; display:none; margin-top:10px;">Password salah, coba lagi.</p>
+</div>
+
+<div id="loveScreen" style="display:none;">
+  <h1>Dear, Kumaoy Gading Ratulasni</h1>
+  <img src="potobut.jpg" alt="Love Image" />
+  <p>Entah mengapa, setiap disekolah aku selalu ingin melihatmu, Melihatmu tersenyum, bercanda, dan tertawa.
+  Aku tidak tahu mengapa aku menyukaimu, mungkin karena senyummu yang manis, atau tawamu yang ceria.
+    Mungkin kamu menyadarinya karena aku selalu memandangimu disekolah. Jika kamu merasa risih kepadaku, bilanglah kepadaku. Aku tidak akan marah.
+    Aku hanya ingin kamu tahu bahwa aku menyukaimu. Aku tidak tahu bagaimana cara menggungkapkannya.
+  Aku bukanlah orang yang pandai merangkai kata, tapi aku ingin kamu tahu betapa berharganya dirimu bagiku.
+Mungkin dengan program yang kubuat ini bisa membantuku untuk menyampaikannya kepadamu. Aku senang sekali melihat senyummu dan mendengar tawamu. Manis sekali, bahkan lebih manis dari nutrisari milky orange yang sering kubeli dikantin Bu Tanti.
+aku ingin menghabiskan waktu bersamamu, entah berbagi cerita, bermain roblox , atau apapun itu.
+Maaf,jika aku bukanlah orang yang romantis </p> 
+  <audio id="loveAudio" controls autoplay>
+    <source src="lovee.wav" type="audio/wav">
+    Your browser does not support the audio element.
+  </audio>
+</div>
+
+<script>
+  const passwords = ["17062009"]; // password warna kesukaan
+  const submitBtn = document.getElementById('submitBtn');
+  const passwordInput = document.getElementById('passwordInput');
+  const passwordScreen = document.getElementById('passwordScreen');
+  const loveScreen = document.getElementById('loveScreen');
+  const errorMsg = document.getElementById('errorMsg');
+  const loveAudio = document.getElementById('loveAudio');
+
+  submitBtn.addEventListener('click', () => {
+    if (passwords.includes(passwordInput.value.toLowerCase())) {
+      passwordScreen.style.display = 'none';
+      loveScreen.style.display = 'flex';
+      loveAudio.play(); // Play the audio when the second screen is displayed
+      startParticles();
+    } else {
+      errorMsg.style.display = 'block';
+    }
+  });
+
+  passwordInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      submitBtn.click();
+    }
+  });
+
+  function startParticles() {
+    for (let i = 0; i < 30; i++) {
+      createParticle();
+    }
+  }
+
+  function createParticle() {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    particle.style.left = Math.random() * window.innerWidth + 'px';
+    particle.style.bottom = '-20px';
+    particle.style.animationDuration = (5 + Math.random() * 5) + 's';
+    particle.style.animationDelay = (Math.random() * 5) + 's';
+    document.body.appendChild(particle);
+
+    setTimeout(() => {
+      particle.remove();
+      createParticle();
+    }, (5000 + Math.random() * 5000));
+  }
+</script>
+</body>
+</html>
